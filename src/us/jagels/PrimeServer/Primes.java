@@ -30,7 +30,8 @@ public class Primes extends Thread {
 		System.out.println("Started serverSocket on " + port);
 		primes = Collections.synchronizedList(new ArrayList<Long>());
 		primes.add((long) 2);
-		pf = new PrimeFiller(primes, (int) Math.sqrt(Long.MAX_VALUE));
+		//pf = new PrimeFiller(primes, (int) Math.sqrt(Long.MAX_VALUE));
+		pf = new PrimeFiller(primes, Integer.MAX_VALUE);
 		pf.setPriority(MIN_PRIORITY);
 		pf.start();
 		boolean running = true;
@@ -45,7 +46,7 @@ public class Primes extends Thread {
 		if (k == 1)
 			return false;
 		Long tmp = (long) 0;
-		System.out.println(primes.size());
+		System.out.println(primes.size() + "'th prime is " + primes.get(primes.size()-1));
 		for (int index = 0; index < primes.size(); index++) {
 			Long i = primes.get(index);
 			if (i > Math.sqrt(k) || i == k)

@@ -45,10 +45,13 @@ public class PrimeFiller extends Thread {
 		if (k == 1)
 			return false;
 		Long tmp = (long) 0;
+		//Loop thru the list of primes and mod k by it to check primality.
 		for (int index = 0; index < primes.size(); index++) {
 			Long i = primes.get(index);
-			if (i > Math.sqrt(k) || i == k)
+			//If we've exceeded the square root, it must be prime.
+			if (i > Math.sqrt(k))
 				return true;
+			//If k is ever divisible by i, it's not prime
 			if (k % i == 0) {
 				return false;
 			}
