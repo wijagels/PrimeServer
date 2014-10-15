@@ -99,6 +99,8 @@ public class Primes extends Thread {
 				out.println(divisibleByPrime(k));
 			} catch (NumberTooLargeException e) {
 				out.println(e.getMessage());
+			} catch (NumberFormatException e) {
+				out.println(e.getMessage());
 			}
 		}
 		System.out.println("Connection severed");
