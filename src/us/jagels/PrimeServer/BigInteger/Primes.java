@@ -24,6 +24,7 @@ public class Primes extends Thread {
 	}
 
 	/**
+	 * Starts the server
 	 * @param args
 	 * @throws InterruptedException
 	 * @throws IOException
