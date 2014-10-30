@@ -3,8 +3,6 @@ package us.jagels.PrimeServer.BigInteger;
 import java.math.BigInteger;
 import java.util.List;
 
-import us.jagels.PrimeServer.NumberTooLargeException;
-
 public class PrimeFiller extends Thread {
 
 	private List<BigInteger> primes;

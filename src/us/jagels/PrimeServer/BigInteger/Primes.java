@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import us.jagels.PrimeServer.In;
-import us.jagels.PrimeServer.NumberTooLargeException;
-import us.jagels.PrimeServer.Out;
-
 public class Primes extends Thread {
 	public Socket listener = null;
 	private static List<BigInteger> primes;

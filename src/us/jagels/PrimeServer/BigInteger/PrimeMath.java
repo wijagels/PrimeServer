@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.TreeSet;
 
-import us.jagels.PrimeServer.NumberTooLargeException;
-
 public class PrimeMath {
 
 	public static BigDecimal sqrt(BigDecimal value) {
