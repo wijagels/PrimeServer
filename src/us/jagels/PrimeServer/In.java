@@ -1,4 +1,4 @@
-package us.jagels.PrimeServer.BigInteger;
+package us.jagels.PrimeServer;
 
 /*************************************************************************
  *  Compilation:  javac In.java

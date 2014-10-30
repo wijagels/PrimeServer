@@ -1,4 +1,4 @@
-package us.jagels.PrimeServer.BigInteger;
+package us.jagels.PrimeServer;
 
 public class NumberTooLargeException extends Exception {
 

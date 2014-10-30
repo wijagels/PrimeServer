@@ -1,6 +1,7 @@
 package us.jagels.PrimeServer;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -8,17 +9,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class Primes extends Thread {
-
 	public Socket listener = null;
-	private static List<Long> primes;
+	private static List<BigInteger> primes;
 	private static PrimeFiller pf;
 
-	public Primes(Socket clientSocket, List<Long> p) {
+	public Primes(Socket clientSocket, List<BigInteger> p) {
 		listener = clientSocket;
 		primes = p;
 	}
 
 	/**
+	 * Starts the server
 	 * @param args
 	 * @throws InterruptedException
 	 * @throws IOException
@@ -28,10 +29,10 @@ public class Primes extends Thread {
 		int port = 4444;
 		ServerSocket serverSocket = new ServerSocket(port);
 		System.out.println("Started serverSocket on " + port);
-		primes = Collections.synchronizedList(new ArrayList<Long>());
-		primes.add((long) 2);
-		//pf = new PrimeFiller(primes, (int) Math.sqrt(Long.MAX_VALUE));
-		pf = new PrimeFiller(primes, Integer.MAX_VALUE);
+		primes = Collections.synchronizedList(new ArrayList<BigInteger>());
+		primes.add(new BigInteger("2"));
+		// pf = new PrimeFiller(primes, (int) Math.sqrt(Long.MAX_VALUE));
+		pf = new PrimeFiller(primes, new BigInteger("2000000000"));
 		pf.setPriority(MIN_PRIORITY);
 		pf.start();
 		boolean running = true;
@@ -40,27 +41,6 @@ public class Primes extends Thread {
 			new Primes(clientSocket, primes).start();
 		}
 		serverSocket.close();
-	}
-
-	private boolean divisibleByPrime(long k) throws NumberTooLargeException {
-		if (k == 1)
-			return false;
-		Long tmp = (long) 0;
-		System.out.println(primes.size() + "'th prime is " + primes.get(primes.size()-1));
-		for (int index = 0; index < primes.size(); index++) {
-			Long i = primes.get(index);
-			if (i > Math.sqrt(k) || i == k)
-				return true;
-			if (k % i == 0) {
-				return false;
-			}
-			tmp = i;
-		}
-		if (tmp < Math.sqrt(k)) {
-			throw new NumberTooLargeException(
-					"Number is too big!  Try again later.");
-		}
-		return true;
 	}
 
 	@Override
@@ -75,14 +55,16 @@ public class Primes extends Thread {
 		In in = new In(listener);
 		out.println("Welcome To Prime Number Server!");
 		String s;
-		long k;
+		BigInteger k;
 		while ((s = in.readLine()) != null) {
 			try {
-				k = Long.parseLong(s);
-				out.println(divisibleByPrime(k));
-			} catch (NumberFormatException e) {
-				out.println("Number Format Exception, use a proper long!");
+				k = new BigInteger(s);
+				out.println(PrimeMath.divisibleByPrime(k,primes));
+				System.out.print(String.format("%,d",primes.size()));
+				System.out.println(String.format("'th prime is %,d", primes.get(primes.size()-1)));
 			} catch (NumberTooLargeException e) {
+				out.println(e.getMessage());
+			} catch (NumberFormatException e) {
 				out.println(e.getMessage());
 			}
 		}
@@ -95,5 +77,4 @@ public class Primes extends Thread {
 			e.printStackTrace();
 		}
 	}
-
 }

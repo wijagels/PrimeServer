@@ -20,7 +20,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>us.jagels.PrimeServer.BigInteger.Primes</mainClass>
+							<mainClass>us.jagels.PrimeServer.Primes</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

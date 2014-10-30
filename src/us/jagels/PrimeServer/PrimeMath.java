@@ -1,4 +1,4 @@
-package us.jagels.PrimeServer.BigInteger;
+package us.jagels.PrimeServer;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
