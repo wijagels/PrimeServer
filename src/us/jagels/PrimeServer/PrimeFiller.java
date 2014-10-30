@@ -40,4 +40,8 @@ public class PrimeFiller extends Thread {
 			 */
 		}
 	}
+
+	public List<BigInteger> getPrimes() {
+		return primes;
+	}
 }
