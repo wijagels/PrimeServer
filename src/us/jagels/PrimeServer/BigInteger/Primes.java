@@ -1,7 +1,6 @@
 package us.jagels.PrimeServer.BigInteger;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -48,39 +47,6 @@ public class Primes extends Thread {
 		serverSocket.close();
 	}
 
-	private boolean divisibleByPrime(BigInteger k)
-			throws NumberTooLargeException {
-		if (k.compareTo(BigInteger.ONE) == 0)
-			return false;
-		BigInteger tmp = new BigInteger("0");
-		System.out.println(primes.size() + "'th prime is "
-				+ primes.get(primes.size() - 1));
-		for (int index = 0; index < primes.size(); index++) {
-			BigInteger i = primes.get(index);
-			if (i.compareTo(sqrt(k)) == 1 || i == k)
-				return true;
-			if (k.mod(i) == BigInteger.ZERO) {
-				return false;
-			}
-			tmp = i;
-		}
-		if (tmp.compareTo(sqrt(k)) == -1) {
-			throw new NumberTooLargeException(
-					"Number is too big!  Try again later.");
-		}
-		return true;
-	}
-
-	public static BigDecimal sqrt(BigDecimal value) {
-		BigDecimal x = new BigDecimal(Math.sqrt(value.doubleValue()));
-		return x.add(new BigDecimal(value.subtract(x.multiply(x)).doubleValue()
-				/ (x.doubleValue() * 2.0)));
-	}
-
-	public static BigInteger sqrt(BigInteger value) {
-		return sqrt(new BigDecimal(value.toString())).toBigInteger();
-	}
-
 	@Override
 	public void run() {
 		handleConnection();
@@ -97,7 +63,9 @@ public class Primes extends Thread {
 		while ((s = in.readLine()) != null) {
 			try {
 				k = new BigInteger(s);
-				out.println(divisibleByPrime(k));
+				out.println(PrimeMath.divisibleByPrime(k,primes));
+				System.out.print(String.format("%,d",primes.size()));
+				System.out.println(String.format("'th prime is %,d", primes.get(primes.size()-1)));
 			} catch (NumberTooLargeException e) {
 				out.println(e.getMessage());
 			} catch (NumberFormatException e) {
