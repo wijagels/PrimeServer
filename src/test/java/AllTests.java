@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import us.jagels.PrimeServer.NumberTooLargeException;
@@ -30,7 +31,7 @@ public class AllTests {
 	private final BigInteger largePrime = new BigInteger("99999999977");
 	private final BigInteger largeComposite = new BigInteger("14432823441");
 	private final BigInteger largePseudoPrime = new BigInteger("2152302898747");
-
+	
 	@Test
 	public void checkPrimes() {
 		PrimeFiller pf = initializeFiller(new BigInteger("999999"));
